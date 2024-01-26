@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34322.80
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BabyFullstackApp.Server", "BabyFullstackApp.Server\BabyFullstackApp.Server.csproj", "{65D09C53-C3E9-484D-BE28-B8866EFEF527}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "babyfullstackapp.client", "babyfullstackapp.client\babyfullstackapp.client.esproj", "{F9767695-690D-4ED5-8A5A-88AFEE636B78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{65D09C53-C3E9-484D-BE28-B8866EFEF527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65D09C53-C3E9-484D-BE28-B8866EFEF527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65D09C53-C3E9-484D-BE28-B8866EFEF527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65D09C53-C3E9-484D-BE28-B8866EFEF527}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9767695-690D-4ED5-8A5A-88AFEE636B78}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8F434A61-35AE-4BF4-92F3-BFC640513866}
+	EndGlobalSection
+EndGlobal

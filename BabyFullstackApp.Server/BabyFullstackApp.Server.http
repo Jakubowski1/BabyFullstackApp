@@ -1,0 +1,6 @@
+@BabyFullstackApp.Server_HostAddress = http://localhost:5051
+
+GET {{BabyFullstackApp.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
