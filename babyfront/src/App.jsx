@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Particles from "react-tsparticles";
 import { loadSeaAnemonePreset } from "tsparticles-preset-sea-anemone";
-import drugLogo from "./drug.svg";
+import Logo from "./assets/warsaw-health-center-high-resolution-logo-transparent.png";
 import AddPatient from "./components/add-patient.component";
 import Patient from "./components/patient.component";
 import PatientsList from "./components/patient-list.component";
@@ -14,6 +14,7 @@ import DoctorsList from "./components/doctor-list.component";
 import SignUp from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/Home";
+
 
 function App() {
     const options = {
@@ -36,13 +37,13 @@ function App() {
                         paddingLeft: "60px",
                         paddingTop: "3px",
                         paddingBottom: "3px",
-                        backdropFilter: "invert(10px)",
+                        backdropFilter: "blur(10px)",
                     }}
                 >
                     <Link to={"/Home"} className="logo">
                         <img
-                            src={drugLogo}
-                            alt="Drug Logo"
+                            src={Logo}
+                            alt="Logo"
                             style={{ height: "40px", marginRight: "20px" }}
                         />
                     </Link>
