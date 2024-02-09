@@ -1,26 +1,7 @@
 
 
 const Home = () => {
-    const [data, setData] = useState("default");
-
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-
-        if (token) {
-            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        }
-
-        if (data == "default") {
-            axios
-                .get("http://localhost:21436/api/Doctor")
-                .then((response) => {
-                    const data = response.data;
-
-                    setData(data);
-                })
-                .catch((err) => console.log(err));
-        }
-    });
+    
 
   return (
     

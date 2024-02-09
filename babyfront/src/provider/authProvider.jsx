@@ -1,44 +1,38 @@
-import axios from "axios";
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useState } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({
+    auth: null,
+    setAuth: () => { },
+    user: null,
+});
+
+export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-    // State to hold the authentication token
-    const [token, setToken_] = useState(localStorage.getItem("token"));
-
-    // Function to set the authentication token
-    const setToken = (newToken) => {
-        setToken_(newToken);
-    };
+    const [auth, setAuth] = useState(null);
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
-        if (token) {
-            axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-            localStorage.setItem('token', token);
-        } else {
-            delete axios.defaults.headers.common["Authorization"];
-            localStorage.removeItem('token')
-        }
-    }, [token]);
+        const isAuth = async () => {
+            try {
+                const res = await axios.get(
+                    'http://localhost:21436/api/Login/login',
+                    { withCredentials: true }
+                );
+                setUser(res.data);
+            } catch (error) {
+                setUser(null);
+            };
+        };
 
-    // Memoized value of the authentication context
-    const contextValue = useMemo(
-        () => ({
-            token,
-            setToken,
-        }),
-        [token]
-    );
+        isAuth();
+    }, [auth]);
 
-    // Provide the authentication context to the children components
     return (
-        <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ auth, setAuth, user }}>
+            {children}
+        </AuthContext.Provider>
     );
-};
-
-export const useAuth = () => {
-    return useContext(AuthContext);
 };
 
 export default AuthProvider;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Navigate } from '../../node_modules/react-router-dom/dist/index';
 
 const RouteGuard = ({ children }) => {
     const hasJWT = () => !!localStorage.getItem("token");

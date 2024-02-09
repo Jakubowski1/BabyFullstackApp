@@ -10,13 +10,17 @@ import PatientsList from "./components/patient-list.component";
 import AddDoctor from "./components/add-doctor.component";
 import Doctor from "./components/doctor.component";
 import DoctorsList from "./components/doctor-list.component";
-import AuthProvider from "./provider/authProvider";
 import SignUp from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/Home";
-import RouteGuard from "./components/RouteGuard";   
+import RouteGuard from "./components/RouteGuard";  
+import useAuth from './provider/authProvider'
+import Navbar from './Navbar';
+import NotAuthNavbar from './NotAuthNavbar'
 
 function App() {
+    const { auth } = useAuth();
+
     const options = {
         preset: "seaAnemone",
     };
@@ -24,56 +28,24 @@ function App() {
         loadSeaAnemonePreset(instance);
     };
 
-    return (
-        <div>
- 
-            <div className="content-container">
-                <nav
-                    className="navbar navbar-expand navbar-dark lg-shadow round"    >
-                    <Link to={"/Home"} className="logo">
-                        <img
-                            src={Logo}
-                            alt="Logo"
-                            style={{ height: "40px", marginRight: "20px" }}
-                        />
-                    </Link>
-                    <ul className="navbar-nav">
-                        <li className="nav-item fs-5 fw-bold">
-                            <Link to={"/Patient"} className="nav-link">
-                                Patients
-                            </Link>
-                        </li>
-                        <li className="nav-item fs-5 fw-bold">
-                            <Link to={"/Doctor"} className="nav-link">
-                                Doctors
-                            </Link>
-                        </li>
-                    </ul>
-
-                    <div className="navbar-collapse justify-content-end">
-                        <ul className="navbar-nav">
-                    
-                            <li className="nav-item fs-5 fw-bold">
-                                <Link to={"/login"} className="nav-link">
-                                    Login
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
+     return (
                 <div className="container mt-3">
-                
+                     <Router>
+                         {auth ? <Navbar /> : <NotAuthNavbar />}
                         <Routes>
                         <Route path="/" element={<Login />} />
                         <Route path="/login" element={<Login />} />
-                        <Route path="/Doctor" element={<RouteGuard component={<DoctorsList />} />} />
-                        <Route path="/Patient" element={<PatientsList/> }/>
-                        </Routes>
+                        <Route path="/Doctor" element={<RouteGuard>
+                            <DoctorsList />
+                        </RouteGuard>   } />
+                        <Route path="/Patient" element={<PatientsList />} />
+                        <Route path="/Home" element={<Home />} />
+                         </Routes>
+                     </Router>
          
                 </div>
-            </div>
-        </div>
+     
+
     );
 }
 

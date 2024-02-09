@@ -73,7 +73,7 @@ const PatientsList = () => {
             type="text"
             className="form-control"
             placeholder="Search by title"
-            value={state.searchName}
+            value={state.searchName || ''}
             onChange={onChangeSearchName}
           />
           
