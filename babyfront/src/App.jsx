@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route,Routes, Link} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import Particles from "react-tsparticles";
@@ -10,11 +10,11 @@ import PatientsList from "./components/patient-list.component";
 import AddDoctor from "./components/add-doctor.component";
 import Doctor from "./components/doctor.component";
 import DoctorsList from "./components/doctor-list.component";
-
+import AuthProvider from "./provider/authProvider";
 import SignUp from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/Home";
-
+import RouteGuard from "./components/RouteGuard";   
 
 function App() {
     const options = {
@@ -26,20 +26,10 @@ function App() {
 
     return (
         <div>
-            <Particles options={options} init={initialize} />
+ 
             <div className="content-container">
                 <nav
-                    className="navbar navbar-expand navbar-dark lg-shadow round"
-                    style={{
-                        background: "rgba(0,0,0, 0.9)",
-                        alignItems: "center",
-                        paddingRight: "60px",
-                        paddingLeft: "60px",
-                        paddingTop: "3px",
-                        paddingBottom: "3px",
-                        backdropFilter: "blur(10px)",
-                    }}
-                >
+                    className="navbar navbar-expand navbar-dark lg-shadow round"    >
                     <Link to={"/Home"} className="logo">
                         <img
                             src={Logo}
@@ -62,11 +52,7 @@ function App() {
 
                     <div className="navbar-collapse justify-content-end">
                         <ul className="navbar-nav">
-                            <li className="nav-item fs-5 fw-bold">
-                                <Link to={"/signup"} className="nav-link">
-                                    Register
-                                </Link>
-                            </li>
+                    
                             <li className="nav-item fs-5 fw-bold">
                                 <Link to={"/login"} className="nav-link">
                                     Login
@@ -77,18 +63,14 @@ function App() {
                 </nav>
 
                 <div className="container mt-3">
-                    <Routes>
+                
+                        <Routes>
                         <Route path="/" element={<Login />} />
-                        <Route path="/Patient" element={<PatientsList />} />
-                        <Route path="/add" element={<AddPatient />} />
-                        <Route path="/Patient/:id" element={<Patient />} />
-                        <Route path="/Home" element={<Home />} />
-                        <Route path="/Doctor" element={<DoctorsList />} />
-                        <Route path="/addDoctor" element={<AddDoctor />} />
-                        <Route path="/Doctor/:id" element={<Doctor />} />
-                        <Route path="/signup" element={<SignUp />} />
                         <Route path="/login" element={<Login />} />
-                    </Routes>
+                        <Route path="/Doctor" element={<RouteGuard component={<DoctorsList />} />} />
+                        <Route path="/Patient" element={<PatientsList/> }/>
+                        </Routes>
+         
                 </div>
             </div>
         </div>
