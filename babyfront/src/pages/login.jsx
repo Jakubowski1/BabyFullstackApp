@@ -8,10 +8,10 @@ function LoginPage() {
     const navigate = useNavigate();
     const [userName, setUserName] = useState("admin");
     const [password, setPassword] = useState("password");
+    const { setAuth } = useAuth();
 
     function handleSubmit(event) {
         event.preventDefault();
-        const { setAuth } = useAuth();
         const loginPayload = {
             userName: userName,
             password: password,

@@ -14,7 +14,7 @@ import SignUp from "./pages/signup";
 import Login from "./pages/login";
 import Home from "./pages/Home";
 import RouteGuard from "./components/RouteGuard";  
-import useAuth from './provider/authProvider'
+import {useAuth }from './provider/authProvider'
 import Navbar from './Navbar';
 import NotAuthNavbar from './NotAuthNavbar'
 
@@ -30,7 +30,6 @@ function App() {
 
      return (
                 <div className="container mt-3">
-                     <Router>
                          {auth ? <Navbar /> : <NotAuthNavbar />}
                         <Routes>
                         <Route path="/" element={<Login />} />
@@ -41,7 +40,6 @@ function App() {
                         <Route path="/Patient" element={<PatientsList />} />
                         <Route path="/Home" element={<Home />} />
                          </Routes>
-                     </Router>
          
                 </div>
      
