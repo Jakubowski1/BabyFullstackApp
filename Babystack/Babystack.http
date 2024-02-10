@@ -1,4 +1,5 @@
-@Babystack_HostAddress = http://localhost:5118
+@Babystack_HostAddress = http://localhost:3000
+
 
 GET {{Babystack_HostAddress}}/weatherforecast/
 Accept: application/json

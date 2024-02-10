@@ -57,7 +57,9 @@ builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
         policy.WithOrigins("*")
         .AllowAnyHeader()
-        .AllowAnyHeader())
+        .WithMethods("GET", "POST", "PUT", "DELETE")
+        .WithExposedHeaders("Access-Control-Allow-Headers")
+    )
 );
 
 builder.Services.AddAuthorization();
@@ -70,6 +72,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Enable CORS before other middleware
 app.UseCors();
 
 app.UseHttpsRedirection();

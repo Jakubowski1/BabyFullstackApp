@@ -1,62 +1,71 @@
-/* eslint-disable no-unused-vars */
-import { Link } from "react-router-dom";
-import Validation from './LoginValidation';
-import "../App.css";
-import { useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import "../App.css"
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../provider/authProvider";
 
-export default function Login(){
-   
+function LoginPage() {
+    const navigate = useNavigate();
+    const [userName, setUserName] = useState("admin");
+    const [password, setPassword] = useState("password");
+    const { setAuth } = useAuth();
 
-
-    const [values, setValues] = useState({
-        email: '',
-        password:''
-    })
-
-    const [errors, setErrors] = useState({})
-
-    const handleInput = (event) => {
-        setValues(prev => ({...prev, [event.target.name]:[event.target.value]}));
-    }
-
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
-        setErrors(Validation(values));
+        const loginPayload = {
+            userName: userName,
+            password: password,
+        };
+
+        axios
+            .post("http://localhost:21436/api/Login/login", loginPayload)
+            .then((response) => {
+                const token = response.data.token;
+                localStorage.setItem("token", token);
+                if (token) {
+                    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+                    setAuth(true);
+                }
+                else {
+                    delete axios.defaults.headers.common["Authorization"];
+                }
+                window.location.href = '/Doctor'
+            })
+            .catch(err => console.log(err));
+      
+    }
+    const handleNameChange = (event) => {
+        setUserName(event.target.value);
+    };
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    };
+        return (
+
+            <div className="main">
+                <input type="checkbox" id="chk" aria-hidden="true" />
+
+                <div className="signup">
+                    <form>
+                        <label htmlFor="chk" aria-hidden="true">Sign up</label>
+                        <input type="text" name="txt" placeholder="User name" required="" />
+                        <input type="email" name="email" placeholder="Email" required="" />
+                        <input type="password" name="pswd" placeholder="Password" required="" />
+                        <button>Sign up</button>
+                    </form>
+                </div>
+
+                <div className="login">
+                    <form>
+                        <label htmlFor="chk" aria-hidden="true">Login</label>
+                        <input type="email" name="email" onChange={handleNameChange} placeholder="Email" required="" />
+                        <input type="password" name="pswd" onChange={handlePasswordChange} placeholder="Password" required="" />
+                        <button onClick={handleSubmit}>Login</button>
+                    </form>
+                </div>
+            </div>
+
+        );
     }
 
-	return (
-
-        <div className="logincustom">
-        <div className="p-3 rounded w-25" style={{ background: "rgba(255, 255, 255, 0.25)" }}>
-          <form className="text-white">
-            <div className="mb-3">
-              <label htmlFor="email"><strong>Email</strong></label>
-              <input type="email" placeholder="Enter Email" name='email' onChange={handleInput} className="form-control rounded-25" />
-              {errors.email && <span className="text-danger">{errors.email}</span>}
-            </div>
-            <div className="mb-3">
-              <label htmlFor="password"><strong>Password</strong></label>
-              <input type="password" placeholder="Enter Password" name='password' onChange={handleInput} className="form-control rounded-25" />
-              {errors.password && <span className="text-danger">{errors.password}</span>}
-            </div>
-            <div className="d-grid gap-3">
-            <Link to="/signup" className="btn btn-default border w-100 bg-light rounded-25 text-decoration-none">Create Account</Link>
-            <button
-  type='submit'
-  className="btn btn-success w-100 rounded-25"
-  onClick={() => {
-    alert("wrong pass");
-     // Add this line to change the color
-  }}
->
-  <strong>Login</strong>
-</button>
-
-            </div>
-          </form>
-        </div>
-</div>
-      
-	);
-}
-
+export default LoginPage;

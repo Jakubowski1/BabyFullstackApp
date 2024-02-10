@@ -57,7 +57,9 @@ const Patient = () => {
       });
   };
 
-  const updatePatient = () => {
+    const updatePatient = (e) => {
+        e.preventDefault();
+        console.log("Update button clicked");
     PatientDataService.update(currentPatient.id, currentPatient)
       .then(response => {
         console.log(response.data);
@@ -68,7 +70,8 @@ const Patient = () => {
       });
   };
 
-  const deletePatient = () => {    
+    const deletePatient = () => {  
+      
     PatientDataService.delete(currentPatient.id)
       .then(response => {
         console.log(response.data);
