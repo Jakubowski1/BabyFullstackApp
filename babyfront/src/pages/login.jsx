@@ -6,8 +6,10 @@ import { useAuth } from "../provider/authProvider";
 
 function LoginPage() {
     const navigate = useNavigate();
-    const [userName, setUserName] = useState("admin");
-    const [password, setPassword] = useState("password");
+    const [userName, setUserName] = useState("DefaultUserName");
+    const [password, setPassword] = useState("DefaultPassword")
+    const [name, setName] = useState("DefaultName")
+    const [doB, setdoB] = useState("2024-02-11")
     const { setAuth } = useAuth();
 
     function handleSubmit(event) {
@@ -24,22 +26,46 @@ function LoginPage() {
                 localStorage.setItem("token", token);
                 if (token) {
                     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                    setAuth(true);
+                  
                 }
                 else {
                     delete axios.defaults.headers.common["Authorization"];
                 }
-                window.location.href = '/Doctor'
+                setAuth(true);
+                navigate("/Doctor");
             })
             .catch(err => console.log(err));
       
     }
-    const handleNameChange = (event) => {
+    function handleSubmitSignIn(event) {
+        event.preventDefault();
+        const SignInPayload = {userName, password, name, doB};
+
+        axios.post("http://localhost:21436/api/Registration", SignInPayload)
+            .then((response) => {
+            alert("jest ok");
+                document.getElementById("loginform");
+            })
+            .catch(err => {
+                console.log(err)
+            }
+            );
+    }
+
+    const handleUserNameChange = (event) => {
         setUserName(event.target.value);
+    };
+    const handleNameChange = (event) => {
+        setName(event.target.value);
     };
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
     };
+
+    const handledDobChange = (event) => {
+        setdoB(event.target.value);
+
+    }
         return (
 
             <div className="main">
@@ -48,17 +74,18 @@ function LoginPage() {
                 <div className="signup">
                     <form>
                         <label htmlFor="chk" aria-hidden="true">Sign up</label>
-                        <input type="text" name="txt" placeholder="User name" required="" />
-                        <input type="email" name="email" placeholder="Email" required="" />
-                        <input type="password" name="pswd" placeholder="Password" required="" />
-                        <button>Sign up</button>
+                        <input type="text" name="txt" onChange={handleUserNameChange} placeholder="User name" required="" />
+                        <input type="text" name="txt" onChange={handleNameChange} placeholder="Name" required="" />
+                        <input type="password" name="pswd" onChange={handlePasswordChange} placeholder="Password" required="" />
+                        <input type="date" name="doB" onChange={handledDobChange} placeholder="Date of birth" required="" />
+                        <button onClick={handleSubmitSignIn}>Sign up</button>
                     </form>
                 </div>
 
-                <div className="login">
+                <div className="login" id="loginform">
                     <form>
                         <label htmlFor="chk" aria-hidden="true">Login</label>
-                        <input type="email" name="email" onChange={handleNameChange} placeholder="Email" required="" />
+                        <input type="email" name="email" onChange={handleUserNameChange} placeholder="Email" required="" />
                         <input type="password" name="pswd" onChange={handlePasswordChange} placeholder="Password" required="" />
                         <button onClick={handleSubmit}>Login</button>
                     </form>

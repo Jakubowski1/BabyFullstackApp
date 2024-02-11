@@ -1,5 +1,7 @@
 import { useAuth } from "./provider/authProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Logo from "./assets/warsaw-health-center-high-resolution-logo-transparent.png";
+
 
 const Navbar = () => {
 
