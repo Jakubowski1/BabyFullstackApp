@@ -1,23 +1,23 @@
 import { useAuth } from "./provider/authProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Logo  from "./assets/warsaw-health-center-high-resolution-logo-transparent.png"
+
 
 const Navbar = () => {
 
     const auth = useAuth();
     const navigate = useNavigate();
 
-    const logout = async () => {
-        await axios.get("http://localhost:21436/api/Login/login", { withCredentials: true })
-            .then(res => {
-                console.log(res.data);
+    const logout = () => {
+                localStorage.clear();
                 navigate('/login');
                 return;
-            })
+      
     }
 
     return (
         <nav
-            className="navbar navbar-expand navbar-dark lg-shadow round"    >
+            className="navbar navbar-expand navbar-dark lg-shadow round">
             <Link to={"/Home"} className="logo">
                 <img
                     src={Logo}
@@ -42,7 +42,7 @@ const Navbar = () => {
                 <ul className="navbar-nav">
 
                     <li className="nav-item fs-5 fw-bold">
-                        <Link to={"/login"} className="nav-link">
+                        <Link to={"/login"} onClick={logout} className="nav-link">
                             Log out
                         </Link>
                     </li>

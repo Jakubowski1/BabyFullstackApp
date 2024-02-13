@@ -19,7 +19,8 @@ const AuthProvider = ({ children }) => {
                     'http://localhost:21436/api/Login/login',
                     { withCredentials: true }
                 );
-                setUser(res.data);
+                setUser(res.data);  
+                setAuth(true);
             } catch (error) {
                 setUser(null);
             };

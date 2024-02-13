@@ -10,7 +10,7 @@ import PatientsList from "./components/patient-list.component";
 import AddDoctor from "./components/add-doctor.component";
 import Doctor from "./components/doctor.component";
 import DoctorsList from "./components/doctor-list.component";
-import SignUp from "./pages/signup";
+import Badrequest from "./pages/badrequest";
 import Login from "./pages/login";
 import Home from "./pages/Home";
 import RouteGuard from "./components/RouteGuard";  
@@ -28,9 +28,12 @@ function App() {
         loadSeaAnemonePreset(instance);
     };
 
-     return (
-                <div className="container mt-3">
-                         {auth ? <Navbar /> : <NotAuthNavbar />}
+    return (
+        <div>
+        { auth?<Navbar /> : <NotAuthNavbar />
+}
+                <div className="bouncingblobs--container">
+                        
                         <Routes>
                         <Route path="/" element={<Login />} />
                         <Route path="/login" element={<Login />} />
@@ -38,12 +41,13 @@ function App() {
                             <DoctorsList />
                         </RouteGuard>   } />
                         <Route path="/Patient" element={<PatientsList />} />
-                        <Route path="/Home" element={<Home />} />
+                    <Route path="/Home" element={<Home />} />
+                    <Route path="/badrequest" element={<Badrequest/> }/>
                          </Routes>
-         
-                </div>
+         </div>
+        </div>
      
-
+   
     );
 }
 
