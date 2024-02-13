@@ -26,7 +26,7 @@ function LoginPage() {
                 localStorage.setItem("token", token);
                 if (token) {
                     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-                  
+
                 }
                 else {
                     delete axios.defaults.headers.common["Authorization"];
@@ -35,21 +35,20 @@ function LoginPage() {
                 navigate("/Doctor");
             })
             .catch(err => console.log(err));
-      
+
     }
     function handleSubmitSignIn(event) {
         event.preventDefault();
-        const SignInPayload = {userName, password, name, doB};
+        const SignInPayload = { userName, password, name, doB };
 
         axios.post("http://localhost:21436/api/Registration", SignInPayload)
             .then((response) => {
-            alert("jest ok");
-                document.getElementById("loginform");
+
+                navigate("/Doctor");
             })
             .catch(err => {
                 console.log(err)
-            }
-            );
+            });
     }
 
     const handleUserNameChange = (event) => {
@@ -66,23 +65,32 @@ function LoginPage() {
         setdoB(event.target.value);
 
     }
-        return (
 
+    return (
+        <div className="cont">
             <div className="main">
+
+                <div className="bouncingblobs-container">
+                    <div className="bouncingblob bouncingblob--blue"></div>
+                    <div className="bouncingblob bouncingblob--purple"></div>
+                    <div className="bouncingblob bouncingblob--pink"></div>
+                </div>
+
                 <input type="checkbox" id="chk" aria-hidden="true" />
+
 
                 <div className="signup">
                     <form>
                         <label htmlFor="chk" aria-hidden="true">Sign up</label>
-                        <input type="text" name="txt" onChange={handleUserNameChange} placeholder="User name" required="" />
+
                         <input type="text" name="txt" onChange={handleNameChange} placeholder="Name" required="" />
                         <input type="password" name="pswd" onChange={handlePasswordChange} placeholder="Password" required="" />
-                        <input type="date" name="doB" onChange={handledDobChange} placeholder="Date of birth" required="" />
+                        <input type="password" name="pswd" onChange={handlePasswordChange} placeholder="Confirm password" required="" />
                         <button onClick={handleSubmitSignIn}>Sign up</button>
                     </form>
                 </div>
 
-                <div className="login" id="loginform">
+                <div className="login">
                     <form>
                         <label htmlFor="chk" aria-hidden="true">Login</label>
                         <input type="email" name="email" onChange={handleUserNameChange} placeholder="Email" required="" />
@@ -90,9 +98,10 @@ function LoginPage() {
                         <button onClick={handleSubmit}>Login</button>
                     </form>
                 </div>
-            </div>
 
-        );
-    }
+            </div>
+        </div >
+    );
+}
 
 export default LoginPage;

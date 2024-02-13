@@ -1,4 +1,4 @@
-﻿body {
+﻿.cont {
     margin: 0;
     padding: 0;
     display: flex;
@@ -6,17 +6,120 @@
     align-items: center;
     min-height: 100vh;
     font-family: 'Jost', sans-serif;
-    background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
+    background: none; /* Remove background color */
+    overflow: hidden; /* Hide overflow to prevent scrollbar */
+    position: relative; /* Set position relative to contain absolutely positioned elements */
 }
-
+body {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.bouncingblobs-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place it behind other content */
+}
+nav {
+   margin-right: auto;
+}
 .main {
     width: 350px;
-    height: 500px;
+    height: 490px;
     background: red;
     overflow: hidden;
-    background: blue;
+    background: #231942;
     border-radius: 10px;
     box-shadow: 5px 20px 50px #000;
+}
+
+.bouncingblob {
+    width: 32vw;
+    height: 32vw; /* Set height to maintain aspect ratio */
+    border-radius: 50%;
+    will-change: transform;
+    position: absolute;
+    transform-origin: center;
+    filter: blur(30px);
+    animation: slither 2s infinite alternate ease-in-out;
+}
+
+@keyframes slither-blue {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(200px) translateX(20px);
+    }
+
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+@keyframes slither-purple {
+    0% {
+        transform: translateY(0) translateX(0);
+    }
+
+    50% {
+        transform: translateY(200px) translateX(20px);
+    }
+
+
+
+    100% {
+        transform: translateY(0) translateX(0);
+    }
+}
+
+@keyframes slither-pink {
+    0% {
+        transform: translateY(30px) translateX(0);
+    }
+
+    50% {
+        transform: translateY(200px) translateX(60px);
+    }
+
+    100% {
+        transform: translateY(30px) translateX(0);
+    }
+}
+
+
+
+.bouncingblob--blue {
+    background: #9f86c0;
+    top: 32%;
+    left: 32%;
+    transform: translate(-50%, -50%); /* Center the blob */
+    animation: slither-blue 5s infinite alternate ease-in-out;
+    animation-delay: 1s;
+}
+
+.bouncingblob--purple {
+    background: #be95c4;
+    top: 5%;
+    left: 5%;
+    transform: translate(-25%, -25%); /* Adjust position */
+    animation: slither-purple 5s infinite alternate ease-in-out;
+}
+
+.bouncingblob--pink {
+    background: #e0b1cb;
+    top: 60%;
+    left: 60%;
+    transform: translate(-75%, -75%); /* Adjust position */
+
+    animation: slither-pink 5s infinite alternate ease-in-out;
+    animation-delay: 2s;
 }
 
 #chk {
@@ -25,6 +128,8 @@
 
 .signup {
     position: relative;
+    justify-content: center;
+    align-content: center;
     width: 100%;
     height: 100%;
 }
@@ -60,7 +165,7 @@ button {
     justify-content: center;
     display: block;
     color: #fff;
-    background: #573b8a;
+    background: #5e548e;
     font-size: 1em;
     font-weight: bold;
     margin-top: 20px;
@@ -76,7 +181,7 @@ button {
     }
 
 .login {
-    height: 460px;
+    height: 550px;
     background: #eee;
     border-radius: 60% / 10%;
     transform: translateY(-180px);
@@ -84,18 +189,48 @@ button {
 }
 
     .login label {
-        color: #573b8a;
+        color: #231942;
         transform: scale(.6);
     }
 
 #chk:checked ~ .login {
-    transform: translateY(-500px);
+    transform: translateY(-540px);
 }
 
     #chk:checked ~ .login label {
-        transform: scale(1);
+        transform: scale(1) translateY(20px);
     }
 
 #chk:checked ~ .signup label {
-    transform: scale(.6);
+    transform: scale(.6) translateY(-90px);
+}
+
+ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-color: #231942;
+}
+
+li {
+    color: white;
+}
+
+    li a {
+        display: block;
+        color: white;
+        float: right;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        /* Change the link color to #111 (black) on hover */
+        li a:hover {
+            color: #be95c4;
+        }
+
+.active {
+    background-color: #e0b1cb;
 }
